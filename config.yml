@@ -1,0 +1,65 @@
+jms:
+  brokerUrl: vm://localhost:61616
+  username: admin
+  password: password
+  inputQueue: activemq://test.in
+  outputQueue: activemq://scheduler.out
+
+server:
+ type: default
+ maxThreads: 1024
+ minThreads: 8
+ requestLog:
+  timeZone: UTC
+ applicationConnectors:
+    - type: http
+      port: 9090
+ adminConnectors:
+    - type: http
+      port: 9091
+
+# Logging settings.
+logging:
+  level: INFO
+
+  loggers:
+    com.atlas.stream.infrastructure: DEBUG
+  appenders:
+    - type: console
+
+    - type: file
+      threshold: INFO
+      currentLogFilename: logs/stream.log
+      archivedLogFilenamePattern: logs/stream-%d{yyyy-MM-dd}.log.gz
+      archivedFileCount: 5
+
+database:
+  driverClass: org.h2.Driver
+  user: test
+  password: test
+  url: jdbc:h2:mem:test
+
+app:
+  type: local
+  destination: /tmp/
+  schemaFile: src/main/resources/PixelEvent.avsc
+
+  zk.connect: "localhost:2181"
+  zk.storm.root: "/atlas-kafka/brokers"
+  zk.sessiontimeout.ms: 300000
+  metadata.broker.list: "localhost:9092"
+  serializer.class: kafka.serializer.DefaultEncoder
+  key.serializer.class: kafka.serializer.StringEncoder
+  producer.type: async
+  batch.size: 248
+  queue.enqueueTimeout.ms: -1
+  buffer.size: 61440
+  kafka.topic: pixel_stream
+  kafka.partition.key: key
+
+  aggregation:
+    mins: 60
+    count: 10000
+
+
+

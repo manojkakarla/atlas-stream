@@ -1,0 +1,10 @@
+{"namespace": "com.atlas.stream.bolt",
+  "type": "record",
+  "name": "PixelEvent",
+  "doc": "Atlas Pixel event",
+  "fields": [
+    {"name": "id", "type": "string"},
+    {"name": "adId", "type": "string"},
+    {"name": "deviceId", "type": "string"},
+    {"name": "timeStamp", "type": "long"}]
+}

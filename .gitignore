@@ -1,0 +1,11 @@
+*.class
+.idea/
+*.iml
+target/
+activemq-data/
+# Package Files #
+*.jar
+*.war
+*.ear
+*.log
+.DS_Store
